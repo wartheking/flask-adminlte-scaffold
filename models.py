@@ -38,7 +38,7 @@ class User(UserMixin, BaseModel):
     status = BooleanField(default=True)  # 生效失效标识
 
     def verify_password(self, raw_password):
-        return self.password == raw_password
+        return check_password_hash(self.password, raw_password)
 
 
 # 通知人配置
@@ -49,6 +49,7 @@ class FurnituresData(BaseModel):
     furnitureType = IntegerField()  # 上传家具一级类型
     furnitureType2 = IntegerField()  # 上传家具二级类型
     furniturePicUrl = CharField()    # 上传家具缩略图地址
+    
 
 
 @login_manager.user_loader

@@ -4,7 +4,7 @@ import html
 import json
 import datetime
 from urllib.parse import unquote
-from app.models import CfgNotify
+from app.models import FurnituresData
 from flask import Response, flash
 
 
@@ -52,7 +52,7 @@ def dict_to_obj(dict, obj, exclude=None):
 
 # peewee转dict
 def obj_to_dict(obj, exclude=None):
-    dict = obj.__dict__['_data']
+    dict = obj.__dict__['__data__']
     if exclude:
         for key in exclude:
             if key in dict: dict.pop(key)
@@ -62,6 +62,7 @@ def obj_to_dict(obj, exclude=None):
 # peewee转list
 def query_to_list(query, exclude=None):
     list = []
+    
     for obj in query:
         dict = obj_to_dict(obj, exclude)
         list.append(dict)
@@ -80,7 +81,7 @@ def jsonresp(jsonobj=None, status=200, errinfo=None):
 # 通过名称获取PEEWEE模型
 def get_model_by_name(model_name):
     if model_name == 'notifies':
-        DynamicModel = CfgNotify
+        DynamicModel = FurnituresData
     else:
         DynamicModel = None
     return DynamicModel

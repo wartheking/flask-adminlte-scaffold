@@ -26,36 +26,37 @@
         <div class="box-body">
             <div class="col-md-12">
                 <div class="form-group">
-                    <label>{{form.check_order.label}}</label>
-                    {{form.check_order(class_="slider form-control",placeholder="请输入 列表顺序")}}
+                    <label>{{form.furnitureID.label}}</label>
+                    {{form.furnitureID(class_="form-control",placeholder="请输入")}}
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label>{{form.notify_type.label}}</label>
-                    {{form.notify_type(class_="form-control select2",placeholder="请输入")}}
+                    <label>{{form.uploadUserID.label}}</label>
+                    {{form.uploadUserID(class_="form-control",placeholder="请输入")}}
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label>{{form.notify_name.label}}</label>
-                    {{form.notify_name(class_="form-control",placeholder="请输入")}}
+                    <label>{{form.organization.label}}</label>
+                    {{form.organization(class_="form-control",placeholder="请输入")}}
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label>{{form.notify_number.label}}</label>
-                    {{form.notify_number(class_="form-control",placeholder="请输入")}}
+                    <label>{{form.furnitureType.label}}</label>
+                    {{form.furnitureType(class_="form-control",placeholder="请输入")}}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>{{form.furnitureType2.label}}</label>
+                    {{form.furnitureType2(class_="form-control",placeholder="请输入")}}
                 </div>
             </div>
         </div>
-
-        <div class="box-footer">
-            <div class="col-md-12">
-                {{form.status()}}
-                {{form.submit(class_="btn btn-primary pull-right")}}
-            </div>
-        </div>
+        
+        
     </form>
 </div>
 {% endblock %}
@@ -70,13 +71,13 @@
             value: slide_value
         });
 
-        switch_value = $('#status')[0].checked
-        $('#status').bootstrapSwitch({
-            state: switch_value,
-            onText: '生效',
-            offText: '失效'
+        // switch_value = $('#status')[0].checked
+        // $('#status').bootstrapSwitch({
+        //     state: switch_value,
+        //     onText: '生效',
+        //     offText: '失效'
 
-        });
+        // });
 
         $(".select2").select2();
     }

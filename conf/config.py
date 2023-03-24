@@ -4,12 +4,12 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 
 class Config:
-    SECRET_KEY = os.environ.get('SECRET_KEY') or 'super-secret'
+    SECRET_KEY = '12345678'
     DB_HOST = '127.0.0.1'
-    DB_USER = 'foobar'
-    DB_PASSWD = 'foobar'
-    DB_DATABASE = 'foobar'
-    ITEMS_PER_PAGE = 10
+    DB_USER = 'root'
+    DB_PASSWD = '4dage168'
+    DB_DATABASE = '4dage'
+    ITEMS_PER_PAGE = 50
     JWT_AUTH_URL_RULE = '/api/auth'
 
     @staticmethod

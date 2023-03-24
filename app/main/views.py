@@ -3,8 +3,8 @@ import math
 from flask import render_template, redirect, url_for, flash, request
 from flask_login import login_required, current_user
 from app import utils
-from app.models import CfgNotify
-from app.main.forms import CfgNotifyForm
+from app.models import FurnituresData
+from app.main.forms import FurnituresDataForm
 from . import main
 
 logger = get_logger(__name__)
@@ -32,7 +32,7 @@ def common_list(DynamicModel, view):
 
     # 处理分页
     if page: query = query.paginate(page, length)
-
+    
     dict = {'content': utils.query_to_list(query), 'total_count': total_count,
             'total_page': math.ceil(total_count / length), 'page': page, 'length': length}
     return render_template(view, form=dict, current_user=current_user)
@@ -84,11 +84,11 @@ def index():
 @main.route('/notifylist', methods=['GET', 'POST'])
 @login_required
 def notifylist():
-    return common_list(CfgNotify, 'notifylist.html')
+    return common_list(FurnituresData, 'notifylist.html')
 
 
 # 通知方式配置
 @main.route('/notifyedit', methods=['GET', 'POST'])
 @login_required
 def notifyedit():
-    return common_edit(CfgNotify, CfgNotifyForm(), 'notifyedit.html')
+    return common_edit(FurnituresData, FurnituresDataForm(), 'notifyedit.html')

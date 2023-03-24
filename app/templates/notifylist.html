@@ -22,32 +22,37 @@
         {% if form%}
         <table class="table table-bordered">
             <tr>
-                <th>ID</th>
-                <th>通知方式</th>
-                <th>通知人姓名</th>
-                <th>通知人号码</th>
-                <th>状态</th>
+                <th>家具ID</th>
+                <th>家具预览</th>
+                <th>上传者ID</th>
+                <th>上传者ID</th>
+                <th>上传者ID</th>
+                <th>上传者ID</th>
+                <th>上传者ID</th>
+                <th>上传组织</th>
+                <th>家具类型</th>
+                <th>家具类型2</th>
                 <th>编辑</th>
                 <th>删除</th>
             </tr>
             {% for row in form.content %}
             <tr>
-                <td>{{row.id}}</td>
-                <td>{{row.notify_type}}</td>
-                <td>{{row.notify_name}}</td>
-                <td>{{row.notify_number}}</td>
+                <td>{{row.furnitureID}}</td>
                 <td>
-                    {% if row.status %}
-                    <input type="checkbox" data-id="{{row.id}}" class="status" data-on-text="生效" data-off-text="失效"
-                           data-size="mini" checked>
-                    {% else %}
-                    <input type="checkbox" data-id="{{row.id}}" class="status" data-on-text="生效" data-off-text="失效"
-                           data-size="mini">
-                    {% endif %}
+                    <img src="{{row.furniturePicUrl}}" class="thumbnail">
                 </td>
-                <td><a class='fa fa-lg fa-edit text-light-blue'
-                       href='{{ url_for("main.notifyedit", id=row.id) }}'></a></td>
-                <td><a class='fa fa-lg fa-warning text-red' href='?action=del&id={{row.id}}'></a></td>
+                <td>{{row.uploadUserID}}</td>
+                <td>{{row.uploadUserID}}</td>
+                <td>{{row.uploadUserID}}</td>
+                <td>{{row.uploadUserID}}</td>
+                <td>{{row.uploadUserID}}</td>
+                <td>{{row.organization}}</td>
+                <td>{{row.furnitureType}}</td>
+                <td>{{row.furnitureType2}}</td>
+                <td><a class='fa fa-lg fa-edit text-light-blue' href='{{ url_for("main.notifyedit", id=row.id) }}'></a>
+                </td>
+                <td><a class='fa fa-lg fa-trash text-red' href='?action=del&id={{row.id}}'
+                        onclick="return confirm('你确定要删除这个家具吗?')"></a></td>
             </tr>
             {% endfor %}
         </table>
@@ -55,20 +60,47 @@
     </div>
 
     <div class="box-footer clearfix">
-        {% if form%}
-        <ul class="pagination pagination-sm no-margin pull-right">
-            <li><a href="#">&laquo;</a></li>
-            {% for i in range(1, form.total_page+ 1) %}
-            {% if i == form.page %}
-            <li><a href="?page={{i}}"><b>{{i}}</b></a></li>
-            {% else %}
-            <li><a href="?page={{i}}">{{i}}</a></li>
-            {% endif %}
-            {% endfor %}
-            <li><a href="#">&raquo;</a></li>
-        </ul>
+        {% if form %}
+            <ul class="pagination pagination-sm no-margin pull-right">
+                <li><a href="#">&laquo;</a></li>
+                {% if form.page <= 5 %} 
+                    {% for i in range(1, [form.total_page, 10]|min + 1) %} 
+                        {% if i==form.page %} 
+                            <li><ahref="?page={{i}}"><b>{{i}}</b></a></li>
+                        {% else %}
+                            <li><a href="?page={{i}}">{{i}}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                    {% if form.total_page > 10 %}
+                        <li><a href="#">...</a></li>
+                    {% endif %}
+                {% elif form.page > form.total_page - 6 %}
+                    {% if form.total_page > 10 %}
+                        <li><a href="#">...</a></li>
+                    {% endif %}
+                    {% for i in range([form.total_page - 9, 1]|max, form.total_page + 1) %}
+                        {% if i == form.page %}
+                            <li><a href="?page={{i}}"><b>{{i}}</b></a></li>
+                        {% else %}
+                            <li><a href="?page={{i}}">{{i}}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                {% else %}
+                    <li><a href="#">...</a></li>
+                    {% for i in range(form.page - 4, form.page + 5) %}
+                        {% if i == form.page %}
+                            <li><a href="?page={{i}}"><b>{{i}}</b></a></li>
+                        {% else %}
+                            <li><a href="?page={{i}}">{{i}}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                    <li><a href="#">...</a></li>
+                {% endif %}
+                <li><a href="#">&raquo;</a></li>
+            </ul>
         {% endif %}
     </div>
+
 </div>
 {% endblock %}
 
