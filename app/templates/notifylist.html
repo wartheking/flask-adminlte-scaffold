@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 
-{% block title %}通知方式查询{% endblock %}
+{% block title %}模型查询{% endblock %}
 {% block navbar %}
 <section class="content-header">
-    <h1>通知方式查询</h1>
+    <h1>{{ form.title }}</h1>
     <ol class="breadcrumb">
         <li><i class="fa fa-dashboard"></i> 当前位置</li>
-        <li class="active">通知方式管理</li>
-        <li class="active">通知方式查询</li>
+        <li class="active">模型管理</li>
+        <li class="active">模型查询</li>
     </ol>
 </section>
 {% endblock %}
@@ -17,7 +17,22 @@
     <div class="box-header with-border">
         {% include 'message.html' %}
     </div>
-
+    <form action="/search" method="get" class="search-form">
+        <input type="text" name="query" class="search-field" id="inputBox" placeholder="请输入查询模型的ID" onkeydown="if (event.keyCode === 13) {event.preventDefault(); searchModel();}">
+        <select name="field" class="search-field-type" onchange="updateSearchType(this)">
+            <option value="field0">家具ID</option>
+            <option value="field1">家具名</option>
+            <option value="field2">家具一级分类</option>
+            <option value="field3">家具二级分类</option>
+            <option value="field4">家具风格</option>
+            <option value="field5">家具品牌</option>
+            <option value="field6">家具工艺</option>
+            <option value="field7">家具颜色</option>
+            <option value="field8">供应商</option>
+            <!-- 添加 DynamicModel 中的其他字段 -->
+        </select>
+        <button type="button" class="search-button" onclick=searchModel()>查询模型</button>
+    </form>
     <div class="box-body">
         {% if form%}
         <table class="table table-bordered">
@@ -25,13 +40,16 @@
                 <th>家具ID</th>
                 <th>家具预览</th>
                 <th>上传者ID</th>
-                <th>上传者ID</th>
-                <th>上传者ID</th>
-                <th>上传者ID</th>
-                <th>上传者ID</th>
-                <th>上传组织</th>
-                <th>家具类型</th>
-                <th>家具类型2</th>
+                <th>品牌</th>
+                <th>名称</th>
+                <th>型号</th>
+                <th>风格</th>
+                <th>工艺</th>
+                <th>颜色</th>
+                <th>上传供应商</th>
+                <th>一级分类</th>
+                <th>二级分类</th>
+                <th>售价</th>
                 <th>编辑</th>
                 <th>删除</th>
             </tr>
@@ -42,13 +60,16 @@
                     <img src="{{row.furniturePicUrl}}" class="thumbnail">
                 </td>
                 <td>{{row.uploadUserID}}</td>
-                <td>{{row.uploadUserID}}</td>
-                <td>{{row.uploadUserID}}</td>
-                <td>{{row.uploadUserID}}</td>
-                <td>{{row.uploadUserID}}</td>
-                <td>{{row.organization}}</td>
+                <td>{{row.brand}}</td>
+                <td>{{row.furnitureName}}</td>
+                <td>{{row.furnitureMarking}}</td>
+                <td>{{row.furnitureStyle}}</td>
+                <td>{{row.furnitureCraft}}</td>
+                <td>{{row.furnitureColor}}</td>
+                <td>{{ orDic.get(row.organization, "Unknown") }}</td>
                 <td>{{row.furnitureType}}</td>
                 <td>{{row.furnitureType2}}</td>
+                <td>{{row.furniturePurePrice}}</td>
                 <td><a class='fa fa-lg fa-edit text-light-blue' href='{{ url_for("main.notifyedit", id=row.id) }}'></a>
                 </td>
                 <td><a class='fa fa-lg fa-trash text-red' href='?action=del&id={{row.id}}'
@@ -66,7 +87,7 @@
                 {% if form.page <= 5 %} 
                     {% for i in range(1, [form.total_page, 10]|min + 1) %} 
                         {% if i==form.page %} 
-                            <li><ahref="?page={{i}}"><b>{{i}}</b></a></li>
+                            <li><a href="?page={{i}}"><b>{{i}}</b></a></li>
                         {% else %}
                             <li><a href="?page={{i}}">{{i}}</a></li>
                         {% endif %}
@@ -97,6 +118,7 @@
                     <li><a href="#">...</a></li>
                 {% endif %}
                 <li><a href="#">&raquo;</a></li>
+                
             </ul>
         {% endif %}
     </div>

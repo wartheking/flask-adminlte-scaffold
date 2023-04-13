@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from peewee import MySQLDatabase, Model, CharField, BooleanField, IntegerField
+from peewee import MySQLDatabase, Model, CharField, BooleanField, IntegerField,PrimaryKeyField,FloatField
 import json
 from werkzeug.security import check_password_hash
 from flask_login import UserMixin
@@ -40,6 +40,29 @@ class User(UserMixin, BaseModel):
     def verify_password(self, raw_password):
         return self.password == raw_password
 
+# 家具类型
+class FurnitureType(BaseModel):
+    furnitureType = PrimaryKeyField()   #类型ID
+    typeENName = CharField()  # 类型英文
+    typeCHName = CharField()  # 类型中文
+
+# 家具风格
+class FurnitureStyles(BaseModel):
+    furnitureStyle = PrimaryKeyField()   #风格ID
+    name = CharField()  # 风格名
+
+# 家具风格2
+class FurnitureType2(BaseModel):
+    furnitureType = PrimaryKeyField()   #类型ID
+    furnitureType2 = IntegerField()   #类型2ID
+    typeENName = CharField()  # 类型英文
+    typeCHName = CharField()  # 类型中文
+
+# 供应商
+class Organizations(BaseModel):
+    organizationID = PrimaryKeyField()   #供应商ID
+    organizationName = CharField()  # 供应商名称
+
 
 # 通知人配置
 class FurnituresData(BaseModel):
@@ -49,7 +72,13 @@ class FurnituresData(BaseModel):
     furnitureType = IntegerField()  # 上传家具一级类型
     furnitureType2 = IntegerField()  # 上传家具二级类型
     furniturePicUrl = CharField()    # 上传家具缩略图地址
-
+    brand = CharField()    # 上传家具的品牌
+    furnitureName = CharField()    # 上传家具的名称
+    furnitureMarking = CharField()    # 上传模型的型号
+    furnitureCraft = CharField()    # 上传模型的工艺
+    furnitureColor = CharField()    # 上传模型的颜色
+    furnitureStyle = IntegerField()   #模型风格
+    furniturePurePrice = FloatField()   #模型售价
 
 @login_manager.user_loader
 def load_user(user_id):

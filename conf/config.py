@@ -9,7 +9,7 @@ class Config:
     DB_USER = 'root'
     DB_PASSWD = '4dage168'
     DB_DATABASE = '4dage'
-    ITEMS_PER_PAGE = 50
+    ITEMS_PER_PAGE = 100
     JWT_AUTH_URL_RULE = '/api/auth'
 
     @staticmethod
